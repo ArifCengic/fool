@@ -1,0 +1,41 @@
+{% load static %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+          <div class="page-header">
+            <h2>  {{ comments|length }}  Comments </h2>
+          </div> 
+           <div class="comments-list">
+            {% for c in comments %}
+               <div class="media">
+                   <p class="pull-right">
+                       <small> 
+                        {{ c.pub_date|date:"M d, Y"}} at {{ c.pub_date|date:"H:iA" }}
+                        </small>
+                    </p>
+                    <a class="media-left" href="#">
+                      <img src="http://lorempixel.com/40/40/people/1/">
+                    </a>
+                    <div class="media-body">
+                        
+                      <h4 class="media-heading user_name"> {{ c.user_name }}</h4>
+                      {{ c.text }}
+                      <p>
+                          <button type="button" class="like btn btn-info btn-sml" id="{{ c.pk }}">
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                            {{ c.up_votes }} Likes 
+                          </button>
+                      </p>
+                    </div>
+                  </div>
+                  {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block javascript %}
+
+{% endblock %}

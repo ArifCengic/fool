@@ -1,0 +1,46 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>HOME</title>
+         <!-- <link rel="icon" type="image/png" href="img/facvicon.png"> -->
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+        {% block stylesheet %}{% endblock %}
+    </head>
+    <body>
+        <div class="container top-bar">
+            <a href="{% url 'home' %}" class="btn btn-primary">HOME</a>
+        </div>
+
+        {% block content %}{% endblock %}
+
+        <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script  src="{% static 'js/main.js' %}"></script>
+
+        {% block javascript %}
+        <script>
+            $(".like").click(function () {
+        
+                $.ajax({
+                    url: '{% url "vote" %}',
+                    data: {
+                    'comment_pk': this.id
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $("button#" + data.id).html( data.count + " Likes");
+                    }
+                });
+            });
+        </script>
+        {% endblock %}
+    </body>
+</html>

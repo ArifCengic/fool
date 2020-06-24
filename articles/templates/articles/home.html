@@ -1,0 +1,54 @@
+{% extends 'articles/base.html' %}
+{% block content %}
+{% load static %}
+
+        <div class="container content-inner">
+            <div class="main-col">
+                <section class="jumbo-card card">
+                    <div class="card-image">
+                        <a href="article/{{ top.uuid }}">
+                        <img src= "{% static 'images/card.jpg' %}" alt="" class="img-responsive">
+                        </a>
+                    </div>
+                    <div class="card-elements">
+                        <div class="card-header">
+                            <a href="article/{{ top.uuid }}"> 
+                                <h3>{{ top.headline }}</h3>
+                            </a>
+                            <p class="author"> {{ top.authors.0.byline }}  | {{ top.publish_at|date:"M d, Y" }} </p>
+                        </div>
+                        <div class="card-copy">
+                            <p>{{ top.promo }}</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="cards row">
+            {% for a in articles %}
+                <div class="card col-md-4">
+                    <div class="card-image">
+                        <a href="article/{{ a.uuid }}">
+                            {% with y=forloop.counter|stringformat:"s" %}
+                            {% with template="images/card-"|add:y|add:".jpg" %}
+                                <img src="{% static template %}" class="img-responsive" alt="">
+                            {% endwith %}
+                            {% endwith %}
+                        </a>
+                    </div>
+                    <div class="card-elements">
+                        <div class="card-header">
+                            <a href="article/{{ a.uuid }}">
+                                <h4> {{ a.headline }} </h4>
+                            </a>
+                            <p class="author">  {{ a.authors.0.byline }} | {{ a.publish_at|date:"F d, Y" }}  </p>
+                        </div>
+                        <div class="card-copy">
+                            <p> {{ a.promo | safe }} </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div> 
+        </div>
+        
+{% endblock %}

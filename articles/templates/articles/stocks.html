@@ -1,0 +1,38 @@
+{% load static %}
+
+{% for s in stocks%}
+<div class="ticker-row">
+    <div>
+        <span class="image-wrap">
+            <a href="#">
+                {% with y=forloop.counter|stringformat:"s" %}
+                {% with template="images/related-"|add:y|add:".png" %}
+                    <img src="{% static template %}" class="img-responsive" alt="">
+                {% endwith %}
+                {% endwith %}
+            </a>
+        </span>
+        <h3>{{s.CompanyName}}</h3>
+        <h4>
+            <span class="ticker">
+                <a title="Stock Quote" href="#">
+                    {{s.Exchange}}:<span class="symbol">{{s.Symbol}}</span>
+                </a>
+            </span>
+        </h4>
+        <aside class="price-quote-container">
+            <h4 class="current-price">
+                ${{s.CurrentPrice.Amount}}
+            </h4>
+            <h4 class="price-change-amount price-pos">
+                ${{s.Change.Amount}}
+            </h4>
+            <h4 class="price-change-percent price-pos">
+                ({{s.PercentChange.Value|floatformat:2}}%) 
+            </h4>
+        </aside>
+    </div>
+</div>
+{% endfor %}
+<button id="shuffle-button" class="btn btn-primary"
+onclick="$('div.ticker-row:last').after($('div.ticker-row:first'))">Shuffle</button>
