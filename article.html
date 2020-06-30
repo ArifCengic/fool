@@ -1,0 +1,74 @@
+{% extends 'articles/base.html' %}
+
+{% block content %}
+
+        <div class="container article-content-inner">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="article-header">
+                        <header>
+                            <div id="adv_text" class="adv-heading"></div>
+                            <h1>{{ article.promo }}</h1>
+                        </header>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+        <main class="col-sm-7 col-md-8">
+            <div class="author-tagline author-inline">
+                <div class="author-and-date">
+                    <div class="author-byline">
+                        <div class="author-name"> {{ article.authors.0.byline }} </div>
+                        <div class="author-username">
+                            {{ article.authors.0.username }}
+                        </div>
+                    </div>
+                    <div class="article-pub-date">
+                        <div class="publication-date">
+                            {{ article.publish_at|date:"M d, Y"}} at {{ article.publish_at|date:"H:iA" }} 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="article-body">
+                <div class="article-content">
+                    {{ article.body | safe }}
+            </section>
+        </main>
+
+            
+            <aside class="col-sm-5 col-md-4 p-l">
+                    <section class="related-tickers">
+                        <div class="block-title">
+                            <hr><h2>Stocks</h2>
+                        </div>
+                      
+                    {% include "./stocks.html" %}
+
+                    <section class="read-more-section">
+                        <div class="block-title">
+                            <hr><h2>Read More</h2>
+                        </div>
+                        <ul class="two-line-list">
+                            <li><a href="#">It is a long established fact that a reader</a></li>
+                            <li><a href="#">Many desktop publishing packages and web page editors now use</a></li>
+                            <li><a href="#">Contrary to popular belief, Lorem Ipsum is not simply random text</a></li>
+                            <li><a href="#">There are many variations of passa</a></li>
+                            <li><a href="#" >If you are going to use a passage of Lorem Ipsum</a></li>
+                        </ul>
+                    </section>
+                </aside>
+            </div>
+
+            {% include "./details.html" %}
+
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <br>
+                <input type="submit" class="btn btn-success" value="Post Comment"> 
+            </form>
+        </div>
+        
+{% endblock  %}
+
